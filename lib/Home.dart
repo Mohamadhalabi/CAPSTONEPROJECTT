@@ -367,19 +367,26 @@ class _BluetoothAppState extends State<BluetoothApp> with WidgetsBindingObserver
         print(ascii.decode(data));
 
         String s = new String.fromCharCodes(data);
-       // var output = new Uint8List.fromList(s.codeUnits);
-
+        var output = new Uint8List.fromList(s.codeUnits);
+        String M = output.toString();
         while(connect())
           {
-        if(s==drive)
+        if(M.contains('S'))
           {
+            M="Drive";
+            print(M);
             setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_NONE);
             SystemChrome.setEnabledSystemUIOverlays([]);
           }
-        else if(s==stop)
+        else if(M.contains('D'))
           {
+            M="Stop";
+            print(M);
             setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_ALL);
+            SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
           }
+        else
+          print("Hello****");
       }});
     } catch (exception) {
       print(exception);
